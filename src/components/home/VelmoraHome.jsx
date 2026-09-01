@@ -413,8 +413,8 @@ function Hero() {
       className="cine-stack cine-scene"
       data-cine="hero"
       style={{
+        position: "relative",
         overflow: "hidden",
-        zIndex: 1,
       }}
     >
       {/* Hero Background — zooms slowly as the next scene covers it */}
@@ -545,7 +545,7 @@ function Hero() {
 
 function NewSeasonSection() {
   return (
-    <section data-cine="drift" className="cine-cover" style={{ background: COLORS.ivory, padding: "150px 32px", overflow: "hidden", zIndex: 2 }}>
+    <section data-cine="drift" style={{ background: COLORS.ivory, padding: "150px 32px", overflow: "hidden" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 60, alignItems: "center" }} className="grid-stack">
         <Reveal>
           <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, letterSpacing: "0.3em", color: COLORS.mocha, marginBottom: 18 }}>
@@ -598,8 +598,9 @@ function SignatureEdit() {
   className="signature-section cine-scene"
   data-cine="scene"
   style={{
+    position: "relative",
     width: "100%",
-    zIndex: 3,
+    overflow: "hidden",
   }}
 >
       <img
@@ -694,7 +695,7 @@ function outlineBtn(color) {
 
 function CategorySection() {
   return (
-    <section id="shop" className="cine-cover" style={{ background: COLORS.ivory, padding: "130px 32px", zIndex: 4 }}>
+    <section id="shop" style={{ background: COLORS.ivory, padding: "130px 32px" }}>
       <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
         <Eyebrow>Explore</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px,5vw,56px)", color: COLORS.obsidian, margin: 0 }}>
@@ -806,9 +807,9 @@ function HomeProductCard({ p }) {
   );
 }
 
-function ProductSection({ id, eyebrow, title, products, cta, ctaHref, emptyText, layer = 4 }) {
+function ProductSection({ id, eyebrow, title, products, cta, ctaHref, emptyText }) {
   return (
-    <section id={id} className="cine-cover" style={{ background: COLORS.ivory, padding: "120px 32px", zIndex: layer }}>
+    <section id={id} style={{ background: COLORS.ivory, padding: "120px 32px" }}>
       <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", maxWidth: 1320, margin: "0 auto 50px" }} className="section-head">
         <div>
           <Eyebrow>{eyebrow}</Eyebrow>
@@ -841,7 +842,7 @@ function ProductSection({ id, eyebrow, title, products, cta, ctaHref, emptyText,
 
 function ProductStory() {
   return (
-    <section className="cine-scene" data-cine="scene" style={{ background: COLORS.blush, padding: "0", zIndex: 5 }}>
+    <section data-cine="scene" style={{ background: COLORS.blush, padding: "0" }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "82vh" }} className="grid-stack">
         <div style={{ overflow: "hidden" }}>
           <img
@@ -880,7 +881,7 @@ function ProductStory() {
 
 function OurStory() {
   return (
-    <section id="about" className="cine-cover" data-cine="drift" style={{ background: COLORS.ivory, padding: "150px 32px", zIndex: 6 }}>
+    <section id="about" data-cine="drift" style={{ background: COLORS.ivory, padding: "150px 32px" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 60, alignItems: "center" }} className="grid-stack">
         <Reveal>
           <div style={{ overflow: "hidden" }}>
@@ -954,7 +955,7 @@ function OurStory() {
 
 function FeaturedBanner() {
   return (
-    <section id="collections" data-cine="drift" className="cine-cover" style={{ background: COLORS.ivory, height: "70vh", minHeight: 460, overflow: "hidden", zIndex: 7 }}>
+    <section id="collections" data-cine="drift" style={{ position: "relative", height: "70vh", minHeight: 460, overflow: "hidden" }}>
     <img
   src="/images/velmora-eveningedit.webp"
   alt="The Evening Edit"
@@ -999,7 +1000,7 @@ function BrandPhilosophy() {
     { t: "Timelessness", d: "Pieces designed to outlast the season they were made for." },
   ];
   return (
-    <section className="cine-cover" style={{ background: COLORS.blush, padding: "130px 32px", zIndex: 8 }}>
+    <section style={{ background: COLORS.blush, padding: "130px 32px" }}>
       <Reveal style={{ textAlign: "center", marginBottom: 70, maxWidth: 640, margin: "0 auto 70px" }}>
         <Eyebrow>Philosophy</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(34px,4.5vw,52px)", color: COLORS.obsidian, margin: 0 }}>
@@ -1031,7 +1032,7 @@ function SocialGallery() {
     { src: "/images/tops.webp", alt: "VELMORA tops" },
   ];
   return (
-    <section className="cine-cover" style={{ background: COLORS.ivory, padding: "130px 32px", zIndex: 8 }}>
+    <section style={{ background: COLORS.ivory, padding: "130px 32px" }}>
       <Reveal style={{ textAlign: "center", marginBottom: 50 }}>
         <Eyebrow>@velmora</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(32px,4.5vw,48px)", color: COLORS.obsidian, margin: 0 }}>
@@ -1091,7 +1092,7 @@ function Newsletter() {
   };
 
   return (
-    <section className="cine-cover" style={{ background: COLORS.espresso, padding: "130px 32px", zIndex: 9 }}>
+    <section style={{ background: COLORS.espresso, padding: "130px 32px" }}>
       <Reveal style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
         <Eyebrow dark>Newsletter</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(32px,4.5vw,48px)", color: COLORS.ivory, margin: 0 }}>
@@ -1139,7 +1140,7 @@ function Newsletter() {
 
 function FinalCTA() {
   return (
-    <section className="cine-scene cine-finale" data-cine="scene" style={{ background: COLORS.obsidian, padding: "160px 32px", textAlign: "center", zIndex: 10 }}>
+    <section data-cine="scene" style={{ background: COLORS.obsidian, padding: "160px 32px", textAlign: "center" }}>
       <Reveal>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(46px,7vw,88px)", color: COLORS.ivory, margin: 0, letterSpacing: "0.05em" }}>
           VELMORA
@@ -1162,7 +1163,7 @@ function FinalCTA() {
 
 function Footer() {
   return (
-    <footer id="contact" className="cine-cover" style={{ background: COLORS.espresso, padding: "70px 32px 34px", zIndex: 11 }}>
+    <footer id="contact" style={{ background: COLORS.espresso, padding: "70px 32px 34px" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 40 }} className="footer-grid">
         <div>
           <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: COLORS.ivory, letterSpacing: "0.14em" }}>VELMORA</span>
@@ -1511,19 +1512,19 @@ footer a:hover::after {
         @keyframes scrollPulse { 0%,100% { opacity: 0.35; } 50% { opacity: 1; } }
 
         /* ================= CINEMATIC SCROLL =================
-           Full-screen scenes pin at the top (position: sticky) and the next
-           section slides over them; motion is driven by the --p scroll
+           Sections stay in normal document flow (relative, never sticky —
+           sticky inside the full-page wrapper pins scenes indefinitely and
+           breaks the scroll order). Motion is driven by the --p scroll
            progress variable written by useCinematicScroll(). */
         .cine-scene {
-          position: sticky;
-          top: 0;
+          position: relative;
           width: 100%;
         }
-        .cine-cover { position: relative; }
         .cine-stack {
           height: 100vh;
           height: 100svh;
         }
+
         .cine-finale {
           min-height: 100vh;
           min-height: 100svh;
@@ -1552,9 +1553,6 @@ footer a:hover::after {
             will-change: transform;
           }
         }
-        @media (prefers-reduced-motion: reduce) {
-          .cine-scene { position: relative !important; }
-        }
       `}</style>
 
       <Navbar solid={navSolid} onMenu={() => setMenuOpen(true)} cartCount={cartCount} wishCount={wishCount} />
@@ -1572,7 +1570,6 @@ footer a:hover::after {
         cta="View All"
         ctaHref="/shop?sort=newest"
         emptyText="New pieces are on their way - check back soon."
-        layer={4}
       />
       <ProductStory />
       <OurStory />
@@ -1585,7 +1582,6 @@ footer a:hover::after {
         cta="Shop All"
         ctaHref="/shop"
         emptyText="Our most-loved pieces are being restocked - check back soon."
-        layer={8}
       />
       <BrandPhilosophy />
       <SocialGallery />
