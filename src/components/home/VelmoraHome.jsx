@@ -395,24 +395,9 @@ function Hero() {
 willChange: "transform",
         }}
       />
-      {/* Mobile: full uncropped image — the landscape hero is sized to
-          the viewport width (whole picture visible) and the section
-          grows to fit it, so nothing is cut off on small screens. */}
-      <div
-        className="hero-background-mobile"
-        style={{
-          backgroundImage: `linear-gradient(
-            180deg,
-            rgba(23, 21, 21, 0.35),
-            rgba(23, 21, 21, 0.55)
-          ), url("/images/velmora-hero.webp")`,
-          filter: "grayscale(0.25) sepia(0.12)",
-        }}
-      />
 
       {/* Hero Content */}
       <div
-        className="hero-content"
         style={{
           position: "relative",
           height: "100%",
@@ -1401,41 +1386,6 @@ footer a:hover::after {
   }
   .signature-section .signature-copy {
     padding: 48px 20px !important;
-  }
-}
-
-/* Mobile hero: show the complete, uncropped picture. The desktop
-   cover-cropped background is hidden; the mobile layer sizes the
-   image to the viewport width (aspect preserved) and the hero
-   section grows to fit it, so the whole photo is visible. */
-.hero-background-mobile {
-  display: none;
-  background-size: 100% auto;
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-color: #171515;
-}
-
-@media (max-width: 900px) {
-  .hero-background {
-    display: none !important;
-  }
-  .hero-background-mobile {
-    display: block;
-  }
-  section#home {
-    height: auto !important;
-  }
-  section#home .hero-background-mobile {
-    position: relative;
-    width: 100%;
-    /* hero image aspect (1536x1024) at full width, incl. the gradient */
-    aspect-ratio: 3 / 2;
-  }
-  section#home .hero-content {
-    position: absolute !important;
-    inset: 0 !important;
-    height: 100% !important;
   }
 }
 
