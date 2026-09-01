@@ -31,5 +31,16 @@ export default async function HomePage() {
     getHomeProducts("is_featured"),
   ]);
 
-  return <VelmoraHome newArrivals={newArrivals} bestSellers={bestSellers} />;
+  return (
+    <>
+      {/* Hero is the LCP element — start fetching it before React hydrates. */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/velmora-hero.webp"
+        fetchPriority="high"
+      />
+      <VelmoraHome newArrivals={newArrivals} bestSellers={bestSellers} />
+    </>
+  );
 }

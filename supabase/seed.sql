@@ -27,10 +27,10 @@ select public.promote_to_admin('admin@velmora.com');
 -- ---------------------------------------------------------
 insert into public.categories (id, name, slug, description, image_url, is_active)
 values
-  ('a1000000-0000-0000-0000-000000000001', 'Dresses',      'dresses',      'Sculpted silhouettes and flowing forms for every hour of the day.', '/images/dresses.jpeg',   true),
-  ('a1000000-0000-0000-0000-000000000002', 'Tops',         'tops',         'Considered shirting, blouses and layers cut from natural fibres.',  '/images/tops.jpeg',      true),
-  ('a1000000-0000-0000-0000-000000000003', 'Bottoms',      'bottoms',      'Tailored trousers and skirts with an unhurried elegance.',          '/images/bottoms.jpeg',   true),
-  ('a1000000-0000-0000-0000-000000000004', 'Bags',         'bags',         'Finishing notes — leather goods and quiet detail.',                 '/images/accessories.jpeg', true)
+  ('a1000000-0000-0000-0000-000000000001', 'Dresses',      'dresses',      'Sculpted silhouettes and flowing forms for every hour of the day.', '/images/dresses.webp',   true),
+  ('a1000000-0000-0000-0000-000000000002', 'Tops',         'tops',         'Considered shirting, blouses and layers cut from natural fibres.',  '/images/tops.webp',      true),
+  ('a1000000-0000-0000-0000-000000000003', 'Bottoms',      'bottoms',      'Tailored trousers and skirts with an unhurried elegance.',          '/images/bottoms.webp',   true),
+  ('a1000000-0000-0000-0000-000000000004', 'Bags',         'bags',         'Finishing notes — leather goods and quiet detail.',                 '/images/accessories.webp', true)
 on conflict (slug) do nothing;
 
 -- (Re)align the category name/slug if this seed is re-run over a DB
@@ -44,9 +44,9 @@ where id = 'a1000000-0000-0000-0000-000000000004';
 -- ---------------------------------------------------------
 insert into public.collections (id, name, slug, description, image_url, is_featured, is_active)
 values
-  ('b1000000-0000-0000-0000-000000000001', 'The Signature Edit', 'signature-edit', 'The pieces that define Velmora — enduring shapes, quietly luxurious.', '/images/velmora-signature.png',  true, true),
-  ('b1000000-0000-0000-0000-000000000002', 'New Season',         'new-season',     'The latest arrivals for the season ahead.',                            '/images/velmora-newseason.png',  true, true),
-  ('b1000000-0000-0000-0000-000000000003', 'The Evening Edit',   'evening-edit',   'After-dark dressing — satin, silk and shadow.',                        '/images/velmora-eveningedit.png', true, true)
+  ('b1000000-0000-0000-0000-000000000001', 'The Signature Edit', 'signature-edit', 'The pieces that define Velmora — enduring shapes, quietly luxurious.', '/images/velmora-signature.webp',  true, true),
+  ('b1000000-0000-0000-0000-000000000002', 'New Season',         'new-season',     'The latest arrivals for the season ahead.',                            '/images/velmora-newseason.webp',  true, true),
+  ('b1000000-0000-0000-0000-000000000003', 'The Evening Edit',   'evening-edit',   'After-dark dressing — satin, silk and shadow.',                        '/images/velmora-eveningedit.webp', true, true)
 on conflict (slug) do nothing;
 
 -- ---------------------------------------------------------
@@ -72,60 +72,60 @@ on conflict (slug) do nothing;
 -- 5. Product images (position 0 is the primary/gallery cover)
 -- ---------------------------------------------------------
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000001', '/images/signature-dress.png',       'The Signature Midi Dress', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000001' and i.image_url = '/images/signature-dress.png');
+select 'c1000000-0000-0000-0000-000000000001', '/images/signature-dress.webp',       'The Signature Midi Dress', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000001' and i.image_url = '/images/signature-dress.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000001', '/images/velmora-signature.png',   'The Signature Midi Dress — campaign', x.pos from unnest(array[1]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000001' and i.image_url = '/images/velmora-signature.png');
+select 'c1000000-0000-0000-0000-000000000001', '/images/velmora-signature.webp',   'The Signature Midi Dress — campaign', x.pos from unnest(array[1]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000001' and i.image_url = '/images/velmora-signature.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
 select 'c1000000-0000-0000-0000-000000000002', '/images/satin-evening-dress.webp', 'Satin Evening Gown', x.pos from unnest(array[0]) as x(pos)
 where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000002' and i.image_url = '/images/satin-evening-dress.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000002', '/images/velmora-eveningedit.png', 'Satin Evening Gown — campaign', x.pos from unnest(array[1]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000002' and i.image_url = '/images/velmora-eveningedit.png');
+select 'c1000000-0000-0000-0000-000000000002', '/images/velmora-eveningedit.webp', 'Satin Evening Gown — campaign', x.pos from unnest(array[1]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000002' and i.image_url = '/images/velmora-eveningedit.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000003', '/images/dresses.jpeg',            'Classic Shirt Dress', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000003' and i.image_url = '/images/dresses.jpeg');
+select 'c1000000-0000-0000-0000-000000000003', '/images/dresses.webp',            'Classic Shirt Dress', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000003' and i.image_url = '/images/dresses.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
 select 'c1000000-0000-0000-0000-000000000004', '/images/linen-overshirt.avif',     'Linen Overshirt', x.pos from unnest(array[0]) as x(pos)
 where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000004' and i.image_url = '/images/linen-overshirt.avif');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000005', '/images/tops.jpeg',               'Silk Blouse', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000005' and i.image_url = '/images/tops.jpeg');
+select 'c1000000-0000-0000-0000-000000000005', '/images/tops.webp',               'Silk Blouse', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000005' and i.image_url = '/images/tops.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000006', '/images/velmora-eveningedit.png', 'Tailored Blazer', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000006' and i.image_url = '/images/velmora-eveningedit.png');
+select 'c1000000-0000-0000-0000-000000000006', '/images/velmora-eveningedit.webp', 'Tailored Blazer', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000006' and i.image_url = '/images/velmora-eveningedit.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000007', '/images/wide-leg-trousers.jpg',   'Wide-Leg Trousers', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000007' and i.image_url = '/images/wide-leg-trousers.jpg');
+select 'c1000000-0000-0000-0000-000000000007', '/images/wide-leg-trousers.webp',   'Wide-Leg Trousers', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000007' and i.image_url = '/images/wide-leg-trousers.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000008', '/images/bottoms.jpeg',            'Pleated Maxi Skirt', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000008' and i.image_url = '/images/bottoms.jpeg');
+select 'c1000000-0000-0000-0000-000000000008', '/images/bottoms.webp',            'Pleated Maxi Skirt', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000008' and i.image_url = '/images/bottoms.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-000000000009', '/images/accessories.jpeg',        'Silk Scarf', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000009' and i.image_url = '/images/accessories.jpeg');
+select 'c1000000-0000-0000-0000-000000000009', '/images/accessories.webp',        'Silk Scarf', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-000000000009' and i.image_url = '/images/accessories.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-00000000000a', '/images/accessories.jpeg',        'Leather Belt', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-00000000000a' and i.image_url = '/images/accessories.jpeg');
+select 'c1000000-0000-0000-0000-00000000000a', '/images/accessories.webp',        'Leather Belt', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-00000000000a' and i.image_url = '/images/accessories.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-00000000000b', '/images/accessories.jpeg',        'Minimal Handbag', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-00000000000b' and i.image_url = '/images/accessories.jpeg');
+select 'c1000000-0000-0000-0000-00000000000b', '/images/accessories.webp',        'Minimal Handbag', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-00000000000b' and i.image_url = '/images/accessories.webp');
 
 insert into public.product_images (product_id, image_url, alt_text, position)
-select 'c1000000-0000-0000-0000-00000000000c', '/images/accessories.jpeg',        'Structured Tote', x.pos from unnest(array[0]) as x(pos)
-where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-00000000000c' and i.image_url = '/images/accessories.jpeg');
+select 'c1000000-0000-0000-0000-00000000000c', '/images/accessories.webp',        'Structured Tote', x.pos from unnest(array[0]) as x(pos)
+where not exists (select 1 from public.product_images i where i.product_id = 'c1000000-0000-0000-0000-00000000000c' and i.image_url = '/images/accessories.webp');
 
 -- ---------------------------------------------------------
 -- 6. Product variants

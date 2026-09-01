@@ -31,25 +31,25 @@ const CATEGORIES = [
     id: "c1",
     name: "Dresses",
     slug: "dresses",
-    image_url: "/images/dresses.jpeg",
+    image_url: "/images/dresses.webp",
   },
   {
     id: "c2",
     name: "Tops",
     slug: "tops",
-    image_url: "/images/tops.jpeg",
+    image_url: "/images/tops.webp",
   },
   {
     id: "c3",
     name: "Bottoms",
     slug: "bottoms",
-    image_url: "/images/bottoms.jpeg",
+    image_url: "/images/bottoms.webp",
   },
   {
     id: "c4",
     name: "Bags",
     slug: "bags",
-    image_url: "/images/accessories.jpeg",
+    image_url: "/images/accessories.webp",
   },
 ];
 
@@ -387,7 +387,7 @@ function Hero() {
             180deg,
             rgba(23, 21, 21, 0.35),
             rgba(23, 21, 21, 0.55)
-          ), url("/images/velmora-hero.png")`,
+          ), url("/images/velmora-hero.webp")`,
           backgroundSize: "cover",
           backgroundPosition: "center 20%",
           filter: "grayscale(0.25) sepia(0.12)",
@@ -531,7 +531,7 @@ function NewSeasonSection() {
         <Reveal delay={200}>
           <div style={{ overflow: "hidden", borderRadius: 2 }}>
            <img
-  src="/images/velmora-newseason.png"
+  src="/images/velmora-newseason.webp"
   alt="New season editorial look"
   className="new-season-image"
   style={{
@@ -562,7 +562,7 @@ function SignatureEdit() {
   }}
 >
      <img
-  src="/images/velmora-signature.png"
+  src="/images/velmora-signature.webp"
   alt="The Signature Edit"
   className="signature-image"
   loading="lazy"
@@ -693,7 +693,7 @@ function HomeProductCard({ p }) {
   const prices = (p.product_variants ?? []).map((v) => v.price);
   const basePrice = prices.length ? Math.min(...prices) : 0;
   const inStock = (p.product_variants ?? []).some((v) => (v.stock_quantity ?? 1) > 0);
-  const imageUrl = p.product_images?.[0]?.image_url ?? "/images/velmora-newseason.png";
+  const imageUrl = p.product_images?.[0]?.image_url ?? "/images/velmora-newseason.webp";
 
   return (
     <div>
@@ -842,7 +842,7 @@ function OurStory() {
         <Reveal>
           <div style={{ overflow: "hidden" }}>
            <img
-  src="/images/velmora-ourstory.png"
+  src="/images/velmora-ourstory.webp"
   alt="Behind the VELMORA atelier"
  style={{
   width: "100%",
@@ -912,7 +912,7 @@ function FeaturedBanner() {
   return (
     <section id="collections" style={{ position: "relative", height: "70vh", minHeight: 460, overflow: "hidden" }}>
     <img
-  src="/images/velmora-eveningedit.png"
+  src="/images/velmora-eveningedit.webp"
   alt="The Evening Edit"
   style={{
     width: "100%",
@@ -978,12 +978,12 @@ function BrandPhilosophy() {
 }
 function SocialGallery() {
   const shots = [
-    { src: "/images/velmora-newseason.png", alt: "VELMORA new season campaign" },
-    { src: "/images/velmora-signature.png", alt: "VELMORA signature campaign" },
-    { src: "/images/velmora-ourstory.png", alt: "Behind the VELMORA atelier" },
-    { src: "/images/velmora-eveningedit.png", alt: "VELMORA evening campaign" },
-    { src: "/images/dresses.jpeg", alt: "VELMORA dresses" },
-    { src: "/images/tops.jpeg", alt: "VELMORA tops" },
+    { src: "/images/velmora-newseason.webp", alt: "VELMORA new season campaign" },
+    { src: "/images/velmora-signature.webp", alt: "VELMORA signature campaign" },
+    { src: "/images/velmora-ourstory.webp", alt: "Behind the VELMORA atelier" },
+    { src: "/images/velmora-eveningedit.webp", alt: "VELMORA evening campaign" },
+    { src: "/images/dresses.webp", alt: "VELMORA dresses" },
+    { src: "/images/tops.webp", alt: "VELMORA tops" },
   ];
   return (
     <section style={{ background: COLORS.ivory, padding: "130px 32px" }}>
@@ -1184,7 +1184,6 @@ export default function VelmoraHome({ newArrivals = [], bestSellers = [] }) {
   return (
     <div style={{ background: COLORS.ivory, width: "100%", overflowX: "hidden" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap');
         * { box-sizing: border-box; }
         html, body { margin: 0; }
         a:focus-visible, button:focus-visible, input:focus-visible {

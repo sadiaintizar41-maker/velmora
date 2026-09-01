@@ -12,9 +12,20 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        {/* Fonts: preconnect + high-priority stylesheet instead of a
+            render-blocking @import inside CSS. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap"
+        />
+        {/* Supabase is contacted on first paint for catalog data. */}
+        <link rel="preconnect" href={process.env.NEXT_PUBLIC_SUPABASE_URL} />
+      </head>
       <body style={{ margin: 0 }}>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap');
           * { box-sizing: border-box; }
           html, body { margin: 0; overflow-x: hidden; }
           a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
