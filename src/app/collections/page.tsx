@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getCollections } from "@/lib/supabase/queries";
 
 export const metadata = {
-  title: "Collections — VELMORA",
+  title: "Collections - VELMORA",
   description: "Explore VELMORA's collections — considered edits for every season.",
 };
 

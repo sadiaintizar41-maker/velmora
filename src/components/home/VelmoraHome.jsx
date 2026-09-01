@@ -7,7 +7,7 @@ import { useCart } from "@/lib/cart/CartContext";
 import { useWishlist } from "@/lib/wishlist/WishlistContext";
 
 /* ---------------------------------------------------------
-   VELMORA — "Elegance, Redefined."
+   VELMORA - "Elegance, Redefined."
    Cinematic editorial homepage.
    New Arrivals / Best Sellers receive live catalog data from
    src/app/page.tsx (Supabase). Category tiles, CTA buttons,
@@ -555,6 +555,7 @@ function NewSeasonSection() {
 function SignatureEdit() {
   return (
    <section
+  className="signature-section"
   style={{
     position: "relative",
     width: "100%",
@@ -586,6 +587,7 @@ function SignatureEdit() {
         }}
       >
         <Reveal
+          className="signature-copy"
           style={{
             maxWidth: 520,
             padding: "0 60px",
@@ -1353,21 +1355,36 @@ footer a:hover::after {
   object-fit: contain;
 }
 
+/* Mobile: the landscape image alone is too short for the overlay copy,
+   so on small screens it fills a taller section (cover-crop) and the
+   copy gets fitted padding instead of overflowing/clipping. */
 @media (max-width: 900px) {
-  .signature-image {
+  .signature-section {
+    min-height: 520px;
+    display: flex;
+    align-items: stretch;
+  }
+  .signature-section .signature-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center;
+  }
+  .signature-section .signature-copy {
+    padding: 56px 24px !important;
   }
 }
 
 @media (max-width: 600px) {
-  .signature-image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+  .signature-section {
+    min-height: 470px;
   }
-} 
+  .signature-section .signature-copy {
+    padding: 48px 20px !important;
+  }
+}
         @media (prefers-reduced-motion: reduce) {
           .scroll-line { animation: none !important; }
           * { transition-duration: 0.01ms !important; }

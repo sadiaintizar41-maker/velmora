@@ -4,7 +4,7 @@ import ProductGrid from "@/components/shop/ProductGrid";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Shop — VELMORA",
+  title: "Shop - VELMORA",
   description: "Considered clothing and accessories from VELMORA. Elegance, Redefined.",
 };
 

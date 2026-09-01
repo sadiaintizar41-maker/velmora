@@ -4,7 +4,7 @@ import { WishlistProvider } from "@/lib/wishlist/WishlistContext";
 import ConditionalHeader from "@/components/layout/ConditionalHeader";
 
 export const metadata = {
-  title: "VELMORA — Elegance, Redefined.",
+  title: "VELMORA - Elegance, Redefined.",
   description:
     "A considered clothing house for elegant, effortless dressing. Explore VELMORA's collections.",
 };

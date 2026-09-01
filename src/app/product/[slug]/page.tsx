@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: PageProps) {
   const product = await getProductBySlug(slug);
   if (!product) return { title: "VELMORA" };
   return {
-    title: `${product.name} — VELMORA`,
+    title: `${product.name} - VELMORA`,
     description: product.description ?? undefined,
     openGraph: {
-      title: `${product.name} — VELMORA`,
+      title: `${product.name} - VELMORA`,
       images: product.product_images?.[0]?.image_url ? [product.product_images[0].image_url] : [],
     },
   };

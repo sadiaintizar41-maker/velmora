@@ -1,6 +1,6 @@
 import { getNewsletterSubscribers } from "@/lib/supabase/adminQueries";
 
-export const metadata = { title: "Subscribers — VELMORA Admin" };
+export const metadata = { title: "Subscribers - VELMORA Admin" };
 
 export default async function AdminSubscribersPage() {
   let subscribers: Awaited<ReturnType<typeof getNewsletterSubscribers>> = [];

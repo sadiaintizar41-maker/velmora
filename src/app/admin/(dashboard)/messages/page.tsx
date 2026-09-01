@@ -1,7 +1,7 @@
 import { getContactMessages } from "@/lib/supabase/adminQueries";
 import MessagesTable from "@/components/admin/MessagesTable";
 
-export const metadata = { title: "Messages — VELMORA Admin" };
+export const metadata = { title: "Messages - VELMORA Admin" };
 
 export default async function AdminMessagesPage() {
   let messages: Awaited<ReturnType<typeof getContactMessages>> = [];

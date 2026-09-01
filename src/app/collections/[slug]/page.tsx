@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: PageProps) {
   const collection = await getCollectionBySlug(slug);
   if (!collection) return { title: "VELMORA" };
   return {
-    title: `${collection.name} — VELMORA`,
+    title: `${collection.name} - VELMORA`,
     description: collection.description ?? undefined,
   };
 }
