@@ -430,11 +430,12 @@ willChange: "transform",
           className="hero-eyebrow"
           style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: 12,
-            letterSpacing: "0.35em",
+            fontSize: 10,
+            letterSpacing: "0.32em",
+            marginRight: "-0.32em",
             color: COLORS.champagne,
             textTransform: "uppercase",
-            marginBottom: 22,
+            marginBottom: 18,
           }}
         >
           The Art of Dressing
@@ -446,11 +447,11 @@ willChange: "transform",
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 500,
-            fontSize: "clamp(52px, 11vw, 148px)",
-            letterSpacing: "0.06em",
+            fontSize: "clamp(40px, 7.5vw, 108px)",
+            letterSpacing: "0.1em",
             color: COLORS.ivory,
-            lineHeight: 1,
-            margin: 0,
+            lineHeight: 1.05,
+            margin: "0 -0.1em 0 0",
           }}
         >
           VELMORA
@@ -461,11 +462,12 @@ willChange: "transform",
           className="hero-subtitle"
           style={{
             fontFamily: "Inter, sans-serif",
-            fontSize: 14,
-            letterSpacing: "0.06em",
+            fontSize: 12,
+            letterSpacing: "0.22em",
+            marginRight: "-0.22em",
             color: COLORS.ivory,
             opacity: 0.85,
-            marginTop: 22,
+            marginTop: 16,
           }}
         >
           Elegance, Redefined.
@@ -476,18 +478,19 @@ willChange: "transform",
           className="hero-scroll"
           style={{
             position: "absolute",
-            bottom: 44,
+            bottom: 40,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 10,
+            gap: 8,
           }}
         >
           <span
             style={{
               fontFamily: "Inter, sans-serif",
-              fontSize: 10,
-              letterSpacing: "0.3em",
+              fontSize: 9,
+              letterSpacing: "0.28em",
+              marginRight: "-0.28em",
               color: COLORS.ivory,
               opacity: 0.7,
               textTransform: "uppercase",
