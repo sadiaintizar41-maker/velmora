@@ -13,7 +13,7 @@ export default async function OrderConfirmationPage({ params }: PageProps) {
   const order = await getOrderById(orderId);
 
   // If this order doesn't belong to the signed-in session, RLS
-  // simply returns no row — this looks identical to "not found,"
+  // simply returns no row - this looks identical to "not found,"
   // which is the correct, non-leaky behavior here.
   if (!order) notFound();
 

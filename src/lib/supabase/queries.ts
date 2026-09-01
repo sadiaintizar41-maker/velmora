@@ -16,7 +16,7 @@ export interface ShopFilters {
 
 // Fetches the storefront product grid. RLS already restricts this
 // to status = 'published' AND is_active = true for non-admin
-// sessions, so no extra filtering for that is needed here — the
+// sessions, so no extra filtering for that is needed here - the
 // database is the source of truth for what's publicly visible.
 export async function getShopProducts(filters: ShopFilters = {}) {
   const supabase = await createClient();

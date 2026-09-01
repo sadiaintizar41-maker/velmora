@@ -5,7 +5,7 @@ import type { UserRole } from "@/lib/supabase/database.types";
  * Resolves the signed-in user's role directly from `profiles`,
  * server-side, on every call. Never trust a role passed in from
  * the client (a query param, a cookie you set yourself, form
- * data, etc.) — this is the one source of truth, and it's itself
+ * data, etc.) - this is the one source of truth, and it's itself
  * protected by RLS (a user can only ever read their own profile
  * row unless they're already an admin).
  */

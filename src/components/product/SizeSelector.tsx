@@ -25,8 +25,8 @@ export default function SizeSelector({ sizes, selected, onSelect }: Props) {
             disabled={outOfStock}
             onClick={() => onSelect(v.size)}
             aria-pressed={isSelected}
-            aria-label={outOfStock ? `${v.size} — out of stock` : v.size}
-            title={outOfStock ? `${v.size} — out of stock` : v.size}
+            aria-label={outOfStock ? `${v.size} - out of stock` : v.size}
+            title={outOfStock ? `${v.size} - out of stock` : v.size}
             style={{
               position: "relative",
               minWidth: 46,

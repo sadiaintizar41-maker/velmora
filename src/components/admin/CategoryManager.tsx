@@ -111,7 +111,7 @@ export default function CategoryManager({ categories }: { categories: Category[]
         <Field label="Name">
           <input value={draft.name} onChange={(e: any) => setDraft({ ...draft, name: e.target.value })} style={input} />
         </Field>
-        <Field label="Slug (optional — generated from name if left blank)">
+        <Field label="Slug (optional - generated from name if left blank)">
           <input value={draft.slug ?? ""} onChange={(e: any) => setDraft({ ...draft, slug: e.target.value })} style={input} />
         </Field>
         <Field label="Description">

@@ -48,7 +48,7 @@ export async function middleware(request: NextRequest) {
 
     if (profile?.role !== "admin") {
       // Non-admins never see the dashboard, even if they type the
-      // URL directly — sent back to the storefront, not to an
+      // URL directly - sent back to the storefront, not to an
       // "access denied" page that would confirm /admin exists.
       const url = request.nextUrl.clone();
       url.pathname = "/";

@@ -3,7 +3,7 @@ import { getCollections } from "@/lib/supabase/queries";
 
 export const metadata = {
   title: "Collections - VELMORA",
-  description: "Explore VELMORA's collections — considered edits for every season.",
+  description: "Explore VELMORA's collections - considered edits for every season.",
 };
 
 export default async function CollectionsPage() {

@@ -178,7 +178,7 @@ export default function ProductForm({ mode, productId, initial, categories, coll
             <div style={{ fontSize: 22, marginBottom: 6 }}>🖼</div>
             Choose files or click to pick images
             <div style={{ fontSize: 11, color: "#3A2926", opacity: 0.7, marginTop: 4 }}>
-              JPG, PNG, WebP or AVIF — you can select several
+              JPG, PNG, WebP or AVIF - you can select several
             </div>
           </div>
           <input

@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 
 // Every function here relies entirely on RLS to restrict results to
 // what an admin session is allowed to see (e.g. draft/archived
-// products, all orders, all profiles) — none of it uses a service
+// products, all orders, all profiles) - none of it uses a service
 // role key. If the calling session isn't actually an admin, these
 // simply return the same restricted rows a customer would get,
 // because that's what the database itself enforces.
@@ -22,7 +22,7 @@ export async function getDashboardStats() {
     supabase.from("orders").select("id", { count: "exact", head: true }),
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("role", "customer"),
     // Revenue is computed only from orders that have actually been
-    // paid — not from every order ever created (which would count
+    // paid - not from every order ever created (which would count
     // pending/cancelled/unpaid carts as revenue).
     supabase.from("orders").select("total_amount").eq("payment_status", "paid"),
     supabase
@@ -52,7 +52,7 @@ export async function getDashboardStats() {
 
 export async function getAdminProducts() {
   const supabase = await createClient();
-  // Deliberately no .eq('status', 'published') filter — an admin
+  // Deliberately no .eq('status', 'published') filter - an admin
   // session sees draft and archived products too, which is exactly
   // what the products_public_read_published RLS policy allows once
   // public.is_admin() returns true for this session.
@@ -120,7 +120,7 @@ export async function getAdminCustomers() {
 
   const [{ data: profiles, error: profilesError }, { data: orders, error: ordersError }] =
     await Promise.all([
-      // Never selects a password/credential column — profiles has none;
+      // Never selects a password/credential column - profiles has none;
       // Supabase Auth stores credentials separately and inaccessibly
       // via the public schema regardless.
       supabase

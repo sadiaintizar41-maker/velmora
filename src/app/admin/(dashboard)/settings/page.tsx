@@ -18,7 +18,7 @@ export default async function AdminSettingsPage() {
       </h1>
       <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#3A2926", marginBottom: 24, maxWidth: 480 }}>
         This updates your own admin profile only. There is no in-app way to grant another
-        account admin access — see <code>promote_to_admin()</code> in the Phase 2 migrations,
+        account admin access - see <code>promote_to_admin()</code> in the Phase 2 migrations,
         which is intentionally only callable by SQL run directly against the database.
       </p>
       {profile && <SettingsForm initial={{ full_name: profile.full_name ?? "", phone: profile.phone ?? "" }} email={profile.email} />}

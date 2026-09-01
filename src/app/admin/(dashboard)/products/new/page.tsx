@@ -15,7 +15,7 @@ export default async function NewProductPage() {
         collections={collections.map((c: any) => ({ id: c.id, name: c.name }))}
       />
       <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "#3A2926", marginTop: 16, maxWidth: 500 }}>
-        Pick product images above — they upload automatically when you create the product. Variants (size, color, price, stock, SKU) are added on the product's edit page afterward.
+        Pick product images above - they upload automatically when you create the product. Variants (size, color, price, stock, SKU) are added on the product's edit page afterward.
       </p>
     </div>
   );

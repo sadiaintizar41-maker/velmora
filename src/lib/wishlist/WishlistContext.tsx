@@ -21,7 +21,7 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) setIds(new Set(JSON.parse(raw)));
     } catch {
-      // corrupted or inaccessible storage — start with an empty wishlist
+      // corrupted or inaccessible storage - start with an empty wishlist
     }
     setHydrated(true);
   }, []);

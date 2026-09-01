@@ -33,7 +33,7 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero is the LCP element — start fetching it before React hydrates. */}
+      {/* Hero is the LCP element - start fetching it before React hydrates. */}
       <link
         rel="preload"
         as="image"

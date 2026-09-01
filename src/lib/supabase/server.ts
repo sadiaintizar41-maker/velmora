@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import type { Database } from "./database.types";
 
 // Used from server components, route handlers, and server actions.
-// Still uses the anon key — a signed-in user's session cookie is
+// Still uses the anon key - a signed-in user's session cookie is
 // what grants them their own row-level access via RLS, not any
 // elevated key. There is no service-role client in this project;
 // see .env.example for why that's a deliberate choice.
@@ -23,7 +23,7 @@ export async function createClient() {
             cookieStore.set({ name, value, ...options });
           } catch {
             // Called from a Server Component with no request context
-            // to write to — safe to ignore, middleware refreshes
+            // to write to - safe to ignore, middleware refreshes
             // the session on every request instead.
           }
         },

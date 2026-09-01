@@ -14,7 +14,7 @@ export interface CartItem {
   unit_price: number;
   quantity: number;
   // stock_quantity is a snapshot from when the item was added/last
-  // synced — used only to cap the quantity stepper in the cart UI.
+  // synced - used only to cap the quantity stepper in the cart UI.
   // The real, current stock is always re-checked server-side inside
   // create_order() at checkout, which is the actual source of truth.
   stock_quantity: number;
@@ -43,7 +43,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) setItems(JSON.parse(raw));
     } catch {
-      // corrupted or inaccessible storage — start with an empty cart
+      // corrupted or inaccessible storage - start with an empty cart
     }
     setHydrated(true);
   }, []);

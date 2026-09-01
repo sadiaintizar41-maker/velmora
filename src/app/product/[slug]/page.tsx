@@ -27,7 +27,7 @@ export default async function ProductPage({ params }: PageProps) {
   const product = await getProductBySlug(slug);
 
   // Draft/archived products 404 for everyone except admins, enforced
-  // by RLS in getProductBySlug — a non-admin session simply never
+  // by RLS in getProductBySlug - a non-admin session simply never
   // receives the row, so this looks identical to "doesn't exist."
   if (!product) notFound();
 

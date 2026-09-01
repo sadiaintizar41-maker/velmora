@@ -250,7 +250,7 @@ function Navbar({ solid, onMenu, cartCount, wishCount }) {
     {cartCount > 0 && <Badge solid={solid}>{cartCount}</Badge>}
   </Link>
 
-  {/* Account — leave unchanged for now */}
+  {/* Account - leave unchanged for now */}
   <button
   aria-label="Account"
   className="lg-only"
@@ -395,9 +395,24 @@ function Hero() {
 willChange: "transform",
         }}
       />
+      {/* Mobile: full uncropped image — the landscape hero is sized to
+          the viewport width (whole picture visible) and the section
+          grows to fit it, so nothing is cut off on small screens. */}
+      <div
+        className="hero-background-mobile"
+        style={{
+          backgroundImage: `linear-gradient(
+            180deg,
+            rgba(23, 21, 21, 0.35),
+            rgba(23, 21, 21, 0.55)
+          ), url("/images/velmora-hero.webp")`,
+          filter: "grayscale(0.25) sepia(0.12)",
+        }}
+      />
 
       {/* Hero Content */}
       <div
+        className="hero-content"
         style={{
           position: "relative",
           height: "100%",
@@ -407,7 +422,7 @@ willChange: "transform",
           justifyContent: "center",
           textAlign: "center",
           opacity: fade,
-      
+
         }}
       >
         {/* Small Heading */}
@@ -524,7 +539,7 @@ function NewSeasonSection() {
             New<br />Season
           </h2>
           <p style={{ fontFamily: "Inter, sans-serif", fontSize: 16, lineHeight: 1.8, color: COLORS.espresso, maxWidth: 380, marginTop: 30 }}>
-            A collection built for stillness and movement alike — considered
+            A collection built for stillness and movement alike - considered
             silhouettes rendered in warm, quiet tones.
           </p>
         </Reveal>
@@ -820,7 +835,7 @@ function ProductStory() {
             <p style={{ fontFamily: "Inter, sans-serif", fontSize: 15, lineHeight: 1.85, color: COLORS.espresso, marginTop: 24 }}>
               Cut on the bias and finished by hand, this is the piece that
               closes the room. Worn low at the shoulder, it moves the way
-              silk should — quietly, and only when you do.
+              silk should - quietly, and only when you do.
             </p>
            <Link
   href="/collections/evening-edit"
@@ -1083,7 +1098,7 @@ function Newsletter() {
         </form>
         <div style={{ minHeight: 22, marginTop: 12 }} role="status" aria-live="polite">
           {status === "ok" && <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: COLORS.champagne }}>You're on the list. Welcome to VELMORA.</p>}
-          {status === "duplicate" && <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: COLORS.champagne }}>You're already subscribed — no need to sign up twice.</p>}
+          {status === "duplicate" && <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: COLORS.champagne }}>You're already subscribed - no need to sign up twice.</p>}
           {status === "invalid" && <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#E8A0A0" }}>Enter a valid email address.</p>}
           {status === "error" && <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "#E8A0A0" }}>Something went wrong. Please try again.</p>}
         </div>
@@ -1385,6 +1400,42 @@ footer a:hover::after {
     padding: 48px 20px !important;
   }
 }
+
+/* Mobile hero: show the complete, uncropped picture. The desktop
+   cover-cropped background is hidden; the mobile layer sizes the
+   image to the viewport width (aspect preserved) and the hero
+   section grows to fit it, so the whole photo is visible. */
+.hero-background-mobile {
+  display: none;
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-color: #171515;
+}
+
+@media (max-width: 900px) {
+  .hero-background {
+    display: none !important;
+  }
+  .hero-background-mobile {
+    display: block;
+  }
+  section#home {
+    height: auto !important;
+  }
+  section#home .hero-background-mobile {
+    position: relative;
+    width: 100%;
+    /* hero image aspect (1536x1024) at full width, incl. the gradient */
+    aspect-ratio: 3 / 2;
+  }
+  section#home .hero-content {
+    position: absolute !important;
+    inset: 0 !important;
+    height: 100% !important;
+  }
+}
+
         @media (prefers-reduced-motion: reduce) {
           .scroll-line { animation: none !important; }
           * { transition-duration: 0.01ms !important; }
@@ -1479,7 +1530,7 @@ footer a:hover::after {
         products={newArrivals}
         cta="View All"
         ctaHref="/shop?sort=newest"
-        emptyText="New pieces are on their way — check back soon."
+        emptyText="New pieces are on their way - check back soon."
       />
       <ProductStory />
       <OurStory />
@@ -1491,7 +1542,7 @@ footer a:hover::after {
         products={bestSellers}
         cta="Shop All"
         ctaHref="/shop"
-        emptyText="Our most-loved pieces are being restocked — check back soon."
+        emptyText="Our most-loved pieces are being restocked - check back soon."
       />
       <BrandPhilosophy />
       <SocialGallery />

@@ -246,9 +246,9 @@ export default function ContactPage() {
                     margin: 0,
                   }}
                 >
-                  Monday — Saturday
+                  Monday - Saturday
                   <br />
-                  10:00 AM — 7:00 PM
+                  10:00 AM - 7:00 PM
                 </p>
               </div>
 

@@ -5,7 +5,7 @@ import AdminSidebar from "@/components/admin/AdminSidebar";
 // Deliberately duplicates the check already done in middleware.ts.
 // Two independent checks mean a bug or misconfiguration in one
 // (a matcher typo, a caching edge case) doesn't silently open the
-// dashboard — this layout wraps every /admin/* page and will
+// dashboard - this layout wraps every /admin/* page and will
 // still redirect even if middleware never ran.
 export default async function AdminLayout({
   children,

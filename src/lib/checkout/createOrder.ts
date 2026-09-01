@@ -19,7 +19,7 @@ export interface CheckoutPayload {
 }
 
 // Deliberately does NOT insert into `orders` / `order_items` /
-// decrement `product_variants.stock_quantity` directly — those
+// decrement `product_variants.stock_quantity` directly - those
 // three writes must happen together or not at all, and stock
 // checks must happen under a row lock, which is only guaranteed
 // inside the create_order() database function (see
@@ -36,7 +36,7 @@ export async function createOrder(payload: CheckoutPayload, items: CheckoutItem[
 
   if (error) {
     // Surfaces the function's own message, e.g. "Insufficient
-    // stock for M/Mocha: only 1 left." — safe and useful to show
+    // stock for M/Mocha: only 1 left." - safe and useful to show
     // directly at checkout.
     throw new Error(error.message);
   }

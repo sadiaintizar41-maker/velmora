@@ -75,8 +75,8 @@ export default function VariantSelector({ productId, productSlug, productName, i
       color_hex: c.color_hex,
       available: anyInStock && hasSelectedSize,
       unavailableLabel: anyInStock
-        ? `${c.color_name} — not available in ${selectedSize}`
-        : `${c.color_name} — out of stock`,
+        ? `${c.color_name} - not available in ${selectedSize}`
+        : `${c.color_name} - out of stock`,
     };
   });
 
@@ -158,7 +158,7 @@ export default function VariantSelector({ productId, productSlug, productName, i
       </p>
 
       <fieldset style={{ border: "none", padding: 0, margin: "0 0 26px" }}>
-        <legend style={legendStyle}>Color — {selectedColor}</legend>
+        <legend style={legendStyle}>Color - {selectedColor}</legend>
         <ColorSwatch
           colors={colorsWithAvailability}
           selected={selectedColor}
@@ -181,7 +181,7 @@ export default function VariantSelector({ productId, productSlug, productName, i
             {allOutOfStock
               ? "This product is sold out."
               : selectedVariant.stock_quantity > 0
-                ? `Available${selectedVariant.stock_quantity <= 3 ? ` — only ${selectedVariant.stock_quantity} left` : ""}`
+                ? `Available${selectedVariant.stock_quantity <= 3 ? ` - only ${selectedVariant.stock_quantity} left` : ""}`
                 : "Out of Stock"}
           </p>
         )}
@@ -227,11 +227,11 @@ export default function VariantSelector({ productId, productSlug, productName, i
                 color: "#171515",
               }}
             >
-              {panel} {openPanel === panel ? "–" : "+"}
+              {panel} {openPanel === panel ? "-" : "+"}
             </button>
             {openPanel === panel && (
               <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: 1.8, color: "#3A2926", paddingBottom: 18 }}>
-                {panel === "Size Guide" && "Model is 5'9\" wearing a size S. True to size across XS–XL."}
+                {panel === "Size Guide" && "Model is 5'9\" wearing a size S. True to size across XS-XL."}
                 {panel === "Shipping & Returns" && "Free standard shipping across Pakistan on orders over Rs. 10,000. Returns accepted within 14 days, unworn and tagged."}
                 {panel === "Product Details" && "Made from responsibly sourced fabric, finished by hand. Care instructions are included on the garment label."}
               </p>

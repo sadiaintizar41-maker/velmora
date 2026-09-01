@@ -4,7 +4,7 @@ interface ColorOption {
   color_name: string;
   color_hex: string;
   available: boolean;
-  /** Tooltip/aria text shown when unavailable, e.g. "Noir — not available in M". */
+  /** Tooltip/aria text shown when unavailable, e.g. "Noir - not available in M". */
   unavailableLabel?: string;
 }
 
@@ -27,8 +27,8 @@ export default function ColorSwatch({ colors, selected, onSelect }: Props) {
             onClick={() => onSelect(c.color_name)}
             disabled={out}
             aria-pressed={isSelected}
-            aria-label={out ? c.unavailableLabel ?? `${c.color_name} — out of stock` : c.color_name}
-            title={out ? c.unavailableLabel ?? `${c.color_name} — out of stock` : c.color_name}
+            aria-label={out ? c.unavailableLabel ?? `${c.color_name} - out of stock` : c.color_name}
+            title={out ? c.unavailableLabel ?? `${c.color_name} - out of stock` : c.color_name}
             style={{
               position: "relative",
               width: 32,

@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 // There is no corresponding "sign up" link or form on this page,
 // and no /admin/signup route exists anywhere in the app. Admin
 // accounts are created only via public.promote_to_admin(), run
-// directly against the database by a trusted operator — see
+// directly against the database by a trusted operator - see
 // supabase/migrations/0002_functions_triggers.sql.
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function AdminLoginPage() {
       return;
     }
 
-    // Confirm admin role before redirecting — a customer with a
+    // Confirm admin role before redirecting - a customer with a
     // valid password should never land in the dashboard, they
     // should see the same "incorrect" message a wrong password
     // would give, so this form doesn't leak who has admin access.

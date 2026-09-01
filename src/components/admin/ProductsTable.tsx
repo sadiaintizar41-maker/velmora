@@ -90,7 +90,7 @@ function Row({ product: p }: { product: Product }) {
           {p.name}
         </Link>
       </td>
-      <td style={{ padding: "8px 10px", color: "#3A2926" }}>{p.categories?.name ?? "—"}</td>
+      <td style={{ padding: "8px 10px", color: "#3A2926" }}>{p.categories?.name ?? "-"}</td>
       <td style={{ padding: "8px 10px" }}>
         <button onClick={cyclePublish} disabled={isPending} style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}>
           <StatusPill value={status} />

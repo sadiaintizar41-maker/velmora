@@ -23,9 +23,9 @@ export default function CustomerTable({ customers }: { customers: Customer[] }) 
       <tbody>
         {customers.map((c) => (
           <tr key={c.id} style={{ borderBottom: "1px solid #E8D8D133" }}>
-            <td style={{ padding: "8px 10px", color: "#171515" }}>{c.full_name ?? "—"}</td>
+            <td style={{ padding: "8px 10px", color: "#171515" }}>{c.full_name ?? "-"}</td>
             <td style={{ padding: "8px 10px", color: "#171515" }}>{c.email}</td>
-            <td style={{ padding: "8px 10px", color: "#3A2926" }}>{c.phone ?? "—"}</td>
+            <td style={{ padding: "8px 10px", color: "#3A2926" }}>{c.phone ?? "-"}</td>
             <td style={{ padding: "8px 10px", color: "#171515" }}>{c.orderCount}</td>
             <td style={{ padding: "8px 10px", color: "#171515" }}>{formatPKR(c.totalSpending)}</td>
             <td style={{ padding: "8px 10px", color: "#3A2926" }}>{new Date(c.created_at).toLocaleDateString()}</td>

@@ -128,7 +128,7 @@ export default function CheckoutPage() {
                     checked={form.delivery === opt}
                     onChange={() => update("delivery", opt)}
                   />
-                  {opt === "standard" ? "Standard (3–5 days)" : "Express (1–2 days)"} —{" "}
+                  {opt === "standard" ? "Standard (3-5 days)" : "Express (1-2 days)"} -{" "}
                   {opt === "standard"
                     ? (subtotal >= FREE_SHIPPING_THRESHOLD ? "Free" : formatPKR(SHIPPING_FLAT_RATE))
                     : formatPKR(SHIPPING_FLAT_RATE * 2)}
@@ -141,7 +141,7 @@ export default function CheckoutPage() {
             <Fieldset legend="Payment">
               <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: 1.8, color: "#3A2926" }}>
                 A payment gateway isn't connected yet. Placing your order now will create it with{" "}
-                <strong>payment_status = pending</strong> — the checkout flow, order record, and stock
+                <strong>payment_status = pending</strong> - the checkout flow, order record, and stock
                 reservation are fully live; only the card/payment step is pending integration
                 (e.g. Stripe), which can be added here without changing anything upstream.
               </p>

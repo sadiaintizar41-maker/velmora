@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
-// Deliberately accepts only full_name and phone — there is no
+// Deliberately accepts only full_name and phone - there is no
 // `role` parameter anywhere in this function's signature, so
 // there's nothing here for even a modified client to send that
 // could touch it. Role changes are blocked twice regardless (the

@@ -73,7 +73,7 @@ export default function AboutPage() {
               opacity: 0.9,
             }}
           >
-            VELMORA was created around a simple idea — that getting dressed
+            VELMORA was created around a simple idea - that getting dressed
             should feel effortless, intentional, and entirely your own.
           </p>
         </div>
@@ -196,7 +196,7 @@ export default function AboutPage() {
                   margin: 0,
                 }}
               >
-                Every silhouette is designed with balance in mind — refined
+                Every silhouette is designed with balance in mind - refined
                 enough for an evening, effortless enough for everyday life.
               </p>
 

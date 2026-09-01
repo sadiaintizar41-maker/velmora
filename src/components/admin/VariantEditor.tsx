@@ -95,7 +95,7 @@ export default function VariantEditor({ productId, variants }: { productId: stri
                 </span>
               </td>
               <td style={cell}>Rs. {v.price.toLocaleString("en-PK")}</td>
-              <td style={cell}>{v.compare_at_price ? `Rs. ${v.compare_at_price.toLocaleString("en-PK")}` : "—"}</td>
+              <td style={cell}>{v.compare_at_price ? `Rs. ${v.compare_at_price.toLocaleString("en-PK")}` : "-"}</td>
               <td style={{ ...cell, whiteSpace: "nowrap" }}>
                 <span style={{ color: v.stock_quantity === 0 ? "#A32D2D" : v.stock_quantity <= 5 ? "#B8860B" : "#171515", fontWeight: v.stock_quantity === 0 ? 600 : 400 }}>
                   {v.stock_quantity}
