@@ -85,6 +85,59 @@ function useReveal() {
   return [ref, visible];
 }
 
+/* ---- cinematic scroll engine -------------------------------------
+   Writes a per-element progress custom property (--p: 0 to 1) on
+   every [data-cine] node from the user's scroll position. CSS
+   transforms (hero zoom/fade, image scale-settle, parallax drift)
+   read --p, so motion is scrubbed: it follows the scroll exactly,
+   forwards and back, with no per-frame React re-renders. ----------- */
+
+function useCinematicScroll() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight || 1;
+      for (const el of document.querySelectorAll("[data-cine]")) {
+        const kind = el.dataset.cine;
+        let p;
+        if (kind === "hero") {
+          // hero is pinned; progress = how far the page has scrolled
+          // past its first viewport (i.e. how covered it is)
+          p = Math.min(1, Math.max(0, window.scrollY / vh));
+        } else {
+          const r = el.getBoundingClientRect();
+          p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.9)));
+        }
+        el.style.setProperty("--p", p.toFixed(4));
+      }
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      // rAF never fires while the page is hidden (background tab); update
+      // synchronously in that case so progress stays correct.
+      if (document.hidden) {
+        update();
+      } else {
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    window.addEventListener("load", onScroll);
+    update();
+    const t = setTimeout(onScroll, 900);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("load", onScroll);
+      clearTimeout(t);
+    };
+  }, []);
+}
+
 function Reveal({ as: Tag = "div", delay = 0, className = "", style = {}, children }) {
   const [ref, visible] = useReveal();
   return (
@@ -354,32 +407,19 @@ function MobileMenu({ open, onClose }) {
 
 /* =========================== HERO =========================== */
 function Hero() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const zoom = 1 + Math.min(scrollY, 700) / 4500;
-  const parallaxY = scrollY * -0.12;
-  const fade = 1 - Math.min(scrollY, 500) / 500;
-  const contentY = scrollY * -0.08;
   return (
     <section
       id="home"
+      className="cine-stack cine-scene"
+      data-cine="hero"
       style={{
-        position: "relative",
-        height: "100vh",
         overflow: "hidden",
+        zIndex: 1,
       }}
     >
-      {/* Hero Background */}
+      {/* Hero Background — zooms slowly as the next scene covers it */}
       <div
-        className="hero-background"
+        className="hero-background cine-hero-bg"
         style={{
           position: "absolute",
           inset: 0,
@@ -391,13 +431,12 @@ function Hero() {
           backgroundSize: "cover",
           backgroundPosition: "center 20%",
           filter: "grayscale(0.25) sepia(0.12)",
-          transform: `translate3d(0, ${parallaxY}px, 0) scale(${zoom})`,
-willChange: "transform",
         }}
       />
 
-      {/* Hero Content */}
+      {/* Hero Content — drifts up and fades with scroll progress */}
       <div
+        className="hero-content cine-hero-content"
         style={{
           position: "relative",
           height: "100%",
@@ -406,8 +445,6 @@ willChange: "transform",
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          opacity: fade,
-
         }}
       >
         {/* Small Heading */}
@@ -508,7 +545,7 @@ willChange: "transform",
 
 function NewSeasonSection() {
   return (
-    <section style={{ background: COLORS.ivory, padding: "150px 32px", overflow: "hidden" }}>
+    <section data-cine="drift" className="cine-cover" style={{ background: COLORS.ivory, padding: "150px 32px", overflow: "hidden", zIndex: 2 }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 60, alignItems: "center" }} className="grid-stack">
         <Reveal>
           <p style={{ fontFamily: "Inter, sans-serif", fontSize: 12, letterSpacing: "0.3em", color: COLORS.mocha, marginBottom: 18 }}>
@@ -536,7 +573,7 @@ function NewSeasonSection() {
            <img
   src="/images/velmora-newseason.webp"
   alt="New season editorial look"
-  className="new-season-image"
+  className="new-season-image cine-zoom"
   style={{
     width: "100%",
     height: "auto",
@@ -558,17 +595,17 @@ function NewSeasonSection() {
 function SignatureEdit() {
   return (
    <section
-  className="signature-section"
+  className="signature-section cine-scene"
+  data-cine="scene"
   style={{
-    position: "relative",
     width: "100%",
-    overflow: "hidden",
+    zIndex: 3,
   }}
 >
-     <img
+      <img
   src="/images/velmora-signature.webp"
   alt="The Signature Edit"
-  className="signature-image"
+  className="signature-image cine-zoom"
   loading="lazy"
 />
 
@@ -657,7 +694,7 @@ function outlineBtn(color) {
 
 function CategorySection() {
   return (
-    <section id="shop" style={{ background: COLORS.ivory, padding: "130px 32px" }}>
+    <section id="shop" className="cine-cover" style={{ background: COLORS.ivory, padding: "130px 32px", zIndex: 4 }}>
       <Reveal style={{ textAlign: "center", marginBottom: 60 }}>
         <Eyebrow>Explore</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(36px,5vw,56px)", color: COLORS.obsidian, margin: 0 }}>
@@ -769,9 +806,9 @@ function HomeProductCard({ p }) {
   );
 }
 
-function ProductSection({ id, eyebrow, title, products, cta, ctaHref, emptyText }) {
+function ProductSection({ id, eyebrow, title, products, cta, ctaHref, emptyText, layer = 4 }) {
   return (
-    <section id={id} style={{ background: COLORS.ivory, padding: "120px 32px" }}>
+    <section id={id} className="cine-cover" style={{ background: COLORS.ivory, padding: "120px 32px", zIndex: layer }}>
       <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", maxWidth: 1320, margin: "0 auto 50px" }} className="section-head">
         <div>
           <Eyebrow>{eyebrow}</Eyebrow>
@@ -804,12 +841,13 @@ function ProductSection({ id, eyebrow, title, products, cta, ctaHref, emptyText 
 
 function ProductStory() {
   return (
-    <section style={{ background: COLORS.blush, padding: "0" }}>
+    <section className="cine-scene" data-cine="scene" style={{ background: COLORS.blush, padding: "0", zIndex: 5 }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "82vh" }} className="grid-stack">
         <div style={{ overflow: "hidden" }}>
           <img
             src="/images/satin-evening-dress.webp"
             alt="Satin Evening Dress campaign"
+            className="cine-zoom"
             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(0.15) sepia(0.08)" }}
             loading="lazy"
           />
@@ -842,13 +880,14 @@ function ProductStory() {
 
 function OurStory() {
   return (
-    <section id="about" style={{ background: COLORS.ivory, padding: "150px 32px" }}>
+    <section id="about" className="cine-cover" data-cine="drift" style={{ background: COLORS.ivory, padding: "150px 32px", zIndex: 6 }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 60, alignItems: "center" }} className="grid-stack">
         <Reveal>
           <div style={{ overflow: "hidden" }}>
            <img
   src="/images/velmora-ourstory.webp"
   alt="Behind the VELMORA atelier"
+  className="cine-zoom"
  style={{
   width: "100%",
   height: "650px",
@@ -915,10 +954,11 @@ function OurStory() {
 
 function FeaturedBanner() {
   return (
-    <section id="collections" style={{ position: "relative", height: "70vh", minHeight: 460, overflow: "hidden" }}>
+    <section id="collections" data-cine="drift" className="cine-cover" style={{ background: COLORS.ivory, height: "70vh", minHeight: 460, overflow: "hidden", zIndex: 7 }}>
     <img
   src="/images/velmora-eveningedit.webp"
   alt="The Evening Edit"
+  className="cine-zoom"
   style={{
     width: "100%",
     height: "100%",
@@ -959,7 +999,7 @@ function BrandPhilosophy() {
     { t: "Timelessness", d: "Pieces designed to outlast the season they were made for." },
   ];
   return (
-    <section style={{ background: COLORS.blush, padding: "130px 32px" }}>
+    <section className="cine-cover" style={{ background: COLORS.blush, padding: "130px 32px", zIndex: 8 }}>
       <Reveal style={{ textAlign: "center", marginBottom: 70, maxWidth: 640, margin: "0 auto 70px" }}>
         <Eyebrow>Philosophy</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(34px,4.5vw,52px)", color: COLORS.obsidian, margin: 0 }}>
@@ -991,7 +1031,7 @@ function SocialGallery() {
     { src: "/images/tops.webp", alt: "VELMORA tops" },
   ];
   return (
-    <section style={{ background: COLORS.ivory, padding: "130px 32px" }}>
+    <section className="cine-cover" style={{ background: COLORS.ivory, padding: "130px 32px", zIndex: 8 }}>
       <Reveal style={{ textAlign: "center", marginBottom: 50 }}>
         <Eyebrow>@velmora</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(32px,4.5vw,48px)", color: COLORS.obsidian, margin: 0 }}>
@@ -1051,7 +1091,7 @@ function Newsletter() {
   };
 
   return (
-    <section style={{ background: COLORS.espresso, padding: "130px 32px" }}>
+    <section className="cine-cover" style={{ background: COLORS.espresso, padding: "130px 32px", zIndex: 9 }}>
       <Reveal style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
         <Eyebrow dark>Newsletter</Eyebrow>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(32px,4.5vw,48px)", color: COLORS.ivory, margin: 0 }}>
@@ -1099,7 +1139,7 @@ function Newsletter() {
 
 function FinalCTA() {
   return (
-    <section style={{ background: COLORS.obsidian, padding: "160px 32px", textAlign: "center" }}>
+    <section className="cine-scene cine-finale" data-cine="scene" style={{ background: COLORS.obsidian, padding: "160px 32px", textAlign: "center", zIndex: 10 }}>
       <Reveal>
         <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(46px,7vw,88px)", color: COLORS.ivory, margin: 0, letterSpacing: "0.05em" }}>
           VELMORA
@@ -1122,7 +1162,7 @@ function FinalCTA() {
 
 function Footer() {
   return (
-    <footer id="contact" style={{ background: COLORS.espresso, padding: "70px 32px 34px" }}>
+    <footer id="contact" className="cine-cover" style={{ background: COLORS.espresso, padding: "70px 32px 34px", zIndex: 11 }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 40 }} className="footer-grid">
         <div>
           <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: COLORS.ivory, letterSpacing: "0.14em" }}>VELMORA</span>
@@ -1180,6 +1220,8 @@ export default function VelmoraHome({ newArrivals = [], bestSellers = [] }) {
   const { has: wishHas } = useWishlist();
   const wishCount = newArrivals.concat(bestSellers).filter((p) => wishHas(p.id)).length;
 
+  useCinematicScroll();
+
   useEffect(() => {
     const onScroll = () => setNavSolid(window.scrollY > window.innerHeight * 0.7);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -1187,7 +1229,7 @@ export default function VelmoraHome({ newArrivals = [], bestSellers = [] }) {
   }, []);
 
   return (
-    <div style={{ background: COLORS.ivory, width: "100%", overflowX: "hidden" }}>
+    <div style={{ background: COLORS.ivory, width: "100%" }}>
       <style>{`
         * { box-sizing: border-box; }
         html, body { margin: 0; }
@@ -1467,6 +1509,52 @@ footer a:hover::after {
   }
 }
         @keyframes scrollPulse { 0%,100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+        /* ================= CINEMATIC SCROLL =================
+           Full-screen scenes pin at the top (position: sticky) and the next
+           section slides over them; motion is driven by the --p scroll
+           progress variable written by useCinematicScroll(). */
+        .cine-scene {
+          position: sticky;
+          top: 0;
+          width: 100%;
+        }
+        .cine-cover { position: relative; }
+        .cine-stack {
+          height: 100vh;
+          height: 100svh;
+        }
+        .cine-finale {
+          min-height: 100vh;
+          min-height: 100svh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .signature-section { overflow: hidden; }
+
+        @media (prefers-reduced-motion: no-preference) {
+          /* Hero: background slowly zooms + drifts while the next section
+             covers it; content drifts up and fades out. */
+          .cine-hero-bg {
+            transform: translate3d(0, calc(var(--p, 0) * 4vh), 0) scale(calc(1 + var(--p, 0) * 0.14));
+            will-change: transform;
+          }
+          .cine-hero-content {
+            opacity: calc(1 - var(--p, 0) * 1.15);
+            transform: translate3d(0, calc(var(--p, 0) * -70px), 0);
+            will-change: transform, opacity;
+          }
+          /* Editorial images settle from a slight zoom as they enter. */
+          .cine-zoom {
+            transform: scale(calc(1.12 - var(--p, 0) * 0.12));
+            will-change: transform;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cine-scene { position: relative !important; }
+        }
       `}</style>
 
       <Navbar solid={navSolid} onMenu={() => setMenuOpen(true)} cartCount={cartCount} wishCount={wishCount} />
@@ -1484,6 +1572,7 @@ footer a:hover::after {
         cta="View All"
         ctaHref="/shop?sort=newest"
         emptyText="New pieces are on their way - check back soon."
+        layer={4}
       />
       <ProductStory />
       <OurStory />
@@ -1496,6 +1585,7 @@ footer a:hover::after {
         cta="Shop All"
         ctaHref="/shop"
         emptyText="Our most-loved pieces are being restocked - check back soon."
+        layer={8}
       />
       <BrandPhilosophy />
       <SocialGallery />

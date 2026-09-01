@@ -27,7 +27,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body style={{ margin: 0 }}>
         <style>{`
           * { box-sizing: border-box; }
-          html, body { margin: 0; overflow-x: hidden; }
+          /* overflow-x on html only: on body it would make body a scroll
+             container and break position: sticky scenes. The value still
+             propagates to the viewport, so horizontal clipping is kept. */
+          html { margin: 0; overflow-x: hidden; }
+          body { margin: 0; }
           a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
             outline: 2px solid #765C4D;
             outline-offset: 2px;
