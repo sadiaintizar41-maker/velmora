@@ -19,12 +19,16 @@ export async function signInWithGoogle() {
   try {
     const settingsRes = await fetch(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/settings`,
-      { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! } }
+      { headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! }, cache: "no-store" }
     );
 
     if (settingsRes.ok) {
       const settings = await settingsRes.json();
-      if (!settings.external?.google?.enabled) {
+      // The settings payload has shipped both shapes: a boolean
+      // ("google": true) and an object ("google": { enabled: true }).
+      const google = settings.external?.google;
+      const googleEnabled = google === true || google?.enabled === true;
+      if (!googleEnabled) {
         throw new Error(
           "Google sign-in is not available yet. Please sign in with your email and password."
         );
